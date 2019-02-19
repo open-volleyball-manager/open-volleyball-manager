@@ -13,3 +13,20 @@ lazy val player_module = project
   .settings(
     name := "player_module"
   )
+
+lazy val team_module = project
+  .settings(
+    name := "team_module"
+  )
+  .dependsOn(
+    player_module
+  )
+
+lazy val match_module = project
+  .settings(
+    name := "match_module"
+  )
+  .dependsOn(
+    player_module,
+    team_module
+  )
