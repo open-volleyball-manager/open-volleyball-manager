@@ -1,15 +1,15 @@
 package org.openvolleyballmanager.matches.engine.internal.states
 
-import org.openvolleyballmanager.matches.Placing
+import org.openvolleyballmanager.matches.{MatchState, Placing}
 import org.openvolleyballmanager.matches.engine.internal.ActionState
 import org.openvolleyballmanager.player.Player
 
-class ActionStarted(hostsPlacing: Placing, guestsPlacing: Placing, hostsServe: Boolean) extends ActionState {
+class ActionStarted(matchState: MatchState) extends ActionState {
   private val server: Player =
-    if (hostsServe)
-      hostsPlacing.server()
+    if (matchState.hostsServe())
+      matchState.hostsPlacing().server()
     else
-      guestsPlacing.server()
+      matchState.guestsPlacing().server()
 
   override def actionFinished(): Boolean = false
 

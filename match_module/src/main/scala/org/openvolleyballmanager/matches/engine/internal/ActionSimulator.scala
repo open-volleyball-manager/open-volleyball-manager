@@ -6,10 +6,7 @@ import org.openvolleyballmanager.matches.engine.internal.states.ActionStarted
 class ActionSimulator {
 
   def playAction(matchState: MatchState): MatchState = {
-    val hostsPlacing = matchState.hostsPlacing()
-    val guestsPlacing = matchState.guestsPlacing()
-    val hostsServe = matchState.hostsServe()
-    val initialState = new ActionStarted(hostsPlacing, guestsPlacing, hostsServe)
+    val initialState = new ActionStarted(matchState)
     val actionStates = play(initialState, List())
     updateMatchState(matchState, actionStates)
   }
