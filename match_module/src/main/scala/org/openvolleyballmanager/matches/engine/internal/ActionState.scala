@@ -1,4 +1,4 @@
-package org.openvolleyballmanager.`match`.engine.internal
+package org.openvolleyballmanager.matches.engine.internal
 
 trait ActionState {
   def actionFinished(): Boolean

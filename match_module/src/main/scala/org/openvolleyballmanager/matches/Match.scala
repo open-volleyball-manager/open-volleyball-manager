@@ -1,3 +1,3 @@
-package org.openvolleyballmanager.`match`
+package org.openvolleyballmanager.matches
 
 class Match(hosts: Squad, guests: Squad)

@@ -1,4 +1,4 @@
-package org.openvolleyballmanager.`match`
+package org.openvolleyballmanager.matches
 
 object PlayerRole extends Enumeration {
   type PlayerRole = Value

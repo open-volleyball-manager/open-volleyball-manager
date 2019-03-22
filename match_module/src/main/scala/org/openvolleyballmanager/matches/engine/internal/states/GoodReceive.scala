@@ -1,6 +1,6 @@
-package org.openvolleyballmanager.`match`.engine.internal.states
+package org.openvolleyballmanager.matches.engine.internal.states
 
-import org.openvolleyballmanager.`match`.engine.internal.ActionState
+import org.openvolleyballmanager.matches.engine.internal.ActionState
 
 class GoodReceive extends ActionState {
   override def actionFinished(): Boolean = false

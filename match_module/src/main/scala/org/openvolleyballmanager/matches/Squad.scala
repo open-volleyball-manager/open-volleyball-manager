@@ -1,6 +1,6 @@
-package org.openvolleyballmanager.`match`
+package org.openvolleyballmanager.matches
 
-import org.openvolleyballmanager.`match`.PlayerRole.PlayerRole
+import org.openvolleyballmanager.matches.PlayerRole.PlayerRole
 import org.openvolleyballmanager.player.Player
 import org.openvolleyballmanager.team.Team
 
