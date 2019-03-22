@@ -1,9 +1,10 @@
 package org.openvolleyballmanager.matches.engine.internal.states
 
 import org.openvolleyballmanager.matches.engine.internal.ActionState
+import org.openvolleyballmanager.player.Player
 
-class ServeAce extends ActionState {
+class ServeAce(server: Player) extends ActionState {
   override def actionFinished(): Boolean = false
 
-  override def execute(): ActionState = ???
+  override def execute(): ActionState = new ActionFinished
 }
