@@ -3,13 +3,9 @@ package org.openvolleyballmanager.matches
 import org.openvolleyballmanager.matches.tactics.MatchTactics
 
 trait MatchState {
-  def hostsPlacing(): Placing = ???
+  def placing(team: MatchTeam): TeamPlacing = ???
 
-  def guestsPlacing(): Placing = ???
+  def servers(): MatchTeam = ???
 
-  def hostsServe(): Boolean = ???
-
-  def hostsTactics(): MatchTactics = ???
-
-  def guestsTactics(): MatchTactics = ???
+  def tactics(team: MatchTeam): MatchTactics = ???
 }

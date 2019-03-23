@@ -1,36 +1,69 @@
 package org.openvolleyballmanager.matches.engine.internal.states
 
-import org.openvolleyballmanager.matches.{MatchState, Placing}
 import org.openvolleyballmanager.matches.engine.internal.ActionState
+import org.openvolleyballmanager.matches.tactics._
+import org.openvolleyballmanager.matches.{MatchState, PlayerRole}
 import org.openvolleyballmanager.player.Player
+import org.openvolleyballmanager.util.random.EventProbability
 
 class ActionStarted(matchState: MatchState) extends ActionState {
-  private val server: Player =
-    if (matchState.hostsServe())
-      matchState.hostsPlacing().server()
-    else
-      matchState.guestsPlacing().server()
+  private val server: Player = {
+    val serverTeam = matchState.servers()
+    val serverTeamPlacing = matchState.placing(serverTeam)
+    serverTeamPlacing.server()
+  }
+
+  private val serveParams: (Player, ServeRisk, ServeType) = {
+    val serverTeam = matchState.servers()
+    val tactics = matchState.tactics(serverTeam)
+    val serveRisk = tactics.serveRisk(server)
+    val serveType = tactics.serveType(server)
+    (server, serveRisk, serveType)
+  }
 
   override def actionFinished(): Boolean = false
 
   override def execute(): ActionState = {
     val receiver = determineReceiver()
-    serveFail()
+    serveFault()
       .orElse(serveAce())
       .orElse(goodReceive(receiver))
       .orElse(badReceive(receiver))
       .getOrElse(receiveError(receiver))
   }
 
-  private def determineReceiver(): Player = ???
+  private def determineReceiver(): Player = {
+    val serverTeam = matchState.servers()
+    val serverTeamTactics = matchState.tactics(serverTeam)
+    val serveDirection = serverTeamTactics.serveDirection(server)
+    val receiverTeam = serverTeam.opponents()
+    val receiverTeamPlacing = matchState.placing(receiverTeam)
+    serveDirection match {
+      case Libero => receiverTeamPlacing.player(PlayerRole.Libero)
+      case WingSpiker1 => receiverTeamPlacing.player(PlayerRole.WingSpiker_1)
+      case WingSpiker2 => receiverTeamPlacing.player(PlayerRole.WingSpiker_2)
+      case Abridgment =>
+    }
+    ???
+  }
 
-  private def serveFail(): Option[ActionState] = ???
+  private def serveFault(): Option[ActionState] = eventWithProbability(faultProbability(), () => new ServeFail(server))
 
-  private def serveAce(): Option[ActionState] = ???
+  private def serveAce(): Option[ActionState] = eventWithProbability(aceProbability(), () => new ServeAce(server))
 
   private def goodReceive(receiver: Player): Option[ActionState] = ???
 
   private def badReceive(receiver: Player): Option[ActionState] = ???
 
   private def receiveError(receiver: Player): ActionState = ???
+
+  private def aceProbability(): Double = ???
+
+  private def faultProbability(): Double = ???
+
+  private def eventWithProbability(probability: Double, nextStateSupplier: () => ActionState): Option[ActionState] =
+    if (EventProbability.happens(probability))
+      Some(nextStateSupplier())
+    else
+      None
 }

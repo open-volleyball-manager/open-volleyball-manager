@@ -6,12 +6,23 @@ scalaVersion in ThisBuild := "2.12.8"
 lazy val root = project
   .in(file("."))
   .aggregate(
-    player_module
+    common_module,
+    player_module,
+    team_module,
+    match_module
+  )
+
+lazy val common_module = project
+  .settings(
+    name := "common_module"
   )
 
 lazy val player_module = project
   .settings(
     name := "player_module"
+  )
+  .dependsOn(
+    common_module
   )
 
 lazy val team_module = project
@@ -19,6 +30,7 @@ lazy val team_module = project
     name := "team_module"
   )
   .dependsOn(
+    common_module,
     player_module
   )
 
@@ -27,6 +39,7 @@ lazy val match_module = project
     name := "match_module"
   )
   .dependsOn(
+    common_module,
     player_module,
     team_module
   )
