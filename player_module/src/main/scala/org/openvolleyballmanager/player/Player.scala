@@ -1,5 +1,8 @@
 package org.openvolleyballmanager.player
 
-class Player {
+import org.openvolleyballmanager.player.attributes.PlayerAttributes
 
-}
+case class Player
+(
+  attributes: PlayerAttributes
+)

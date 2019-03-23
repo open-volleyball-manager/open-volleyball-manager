@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.mental
 
-class Determination {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Determination(value: Int) extends PlayerAttr(value)

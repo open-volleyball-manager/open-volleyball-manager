@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.physical
 
-class Strength {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Strength(value: Int) extends PlayerAttr(value)

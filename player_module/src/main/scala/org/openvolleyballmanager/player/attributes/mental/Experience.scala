@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.mental
 
-class Experience {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Experience(value: Int) extends PlayerAttr(value)

@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.technical
 
-class Serve {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Serve(value: Int) extends PlayerAttr(value)

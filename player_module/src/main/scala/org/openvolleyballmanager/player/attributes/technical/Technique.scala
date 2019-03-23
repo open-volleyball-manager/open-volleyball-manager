@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.technical
 
-class Technique {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Technique(value: Int) extends PlayerAttr(value)

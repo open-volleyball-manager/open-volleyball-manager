@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.physical
 
-class Speed {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Speed(value: Int) extends PlayerAttr(value)

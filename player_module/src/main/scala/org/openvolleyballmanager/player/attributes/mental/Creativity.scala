@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.mental
 
-class Creativity {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Creativity(value: Int) extends PlayerAttr(value)

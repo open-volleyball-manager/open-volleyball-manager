@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.technical
 
-class Spike {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Spike(value: Int) extends PlayerAttr(value)

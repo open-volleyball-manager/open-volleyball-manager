@@ -1,5 +1,5 @@
 package org.openvolleyballmanager.player.attributes.technical
 
-class Block {
+import org.openvolleyballmanager.player.attributes.PlayerAttr
 
-}
+class Block(value: Int) extends PlayerAttr(value)
