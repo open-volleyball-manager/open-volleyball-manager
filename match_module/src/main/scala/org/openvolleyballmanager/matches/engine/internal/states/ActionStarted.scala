@@ -16,21 +16,21 @@ class ActionStarted(matchState: MatchState) extends ActionState {
   override def execute(): ActionState = {
     val receiver = determineReceiver()
     serveFail()
+      .orElse(serveAce())
       .orElse(goodReceive(receiver))
       .orElse(badReceive(receiver))
-      .orElse(receiveError(receiver))
-      .getOrElse(serveAce())
+      .getOrElse(receiveError(receiver))
   }
 
   private def determineReceiver(): Player = ???
 
   private def serveFail(): Option[ActionState] = ???
 
+  private def serveAce(): Option[ActionState] = ???
+
   private def goodReceive(receiver: Player): Option[ActionState] = ???
 
   private def badReceive(receiver: Player): Option[ActionState] = ???
 
-  private def receiveError(receiver: Player): Option[ActionState] = ???
-
-  private def serveAce(): ActionState = new ServeAce(server)
+  private def receiveError(receiver: Player): ActionState = ???
 }
