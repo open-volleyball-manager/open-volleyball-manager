@@ -13,12 +13,12 @@ class ActionStarted(matchState: MatchState) extends ActionState {
     serverTeamPlacing.server()
   }
 
-  private val serveParams: (Player, ServeRisk, ServeType) = {
+  private val serveParams: (ServeRisk, ServeType) = {
     val serverTeam = matchState.servers()
     val tactics = matchState.tactics(serverTeam)
     val serveRisk = tactics.serveRisk(server)
     val serveType = tactics.serveType(server)
-    (server, serveRisk, serveType)
+    (serveRisk, serveType)
   }
 
   override def actionFinished(): Boolean = false
@@ -51,15 +51,28 @@ class ActionStarted(matchState: MatchState) extends ActionState {
 
   private def serveAce(): Option[ActionState] = eventWithProbability(aceProbability(), () => new ServeAce(server))
 
-  private def goodReceive(receiver: Player): Option[ActionState] = ???
+  private def goodReceive(receiver: Player): Option[ActionState] = {
+    val receiver = determineReceiver()
+    eventWithProbability(goodReceiveProbability(receiver), () => new GoodReceive(receiver))
+  }
 
-  private def badReceive(receiver: Player): Option[ActionState] = ???
+  private def badReceive(receiver: Player): Option[ActionState] = {
+    val receiver = determineReceiver()
+    eventWithProbability(badReceiveProbability(receiver), () => new BadReceive(receiver))
+  }
 
-  private def receiveError(receiver: Player): ActionState = ???
+  private def receiveError(receiver: Player): ActionState = {
+    val receiver = determineReceiver()
+    new ReceiveError(receiver)
+  }
 
   private def aceProbability(): Double = ???
 
   private def faultProbability(): Double = ???
+
+  private def goodReceiveProbability(receiver: Player): Double = ???
+
+  private def badReceiveProbability(receiver: Player): Double = ???
 
   private def eventWithProbability(probability: Double, nextStateSupplier: () => ActionState): Option[ActionState] =
     if (EventProbability.happens(probability))
