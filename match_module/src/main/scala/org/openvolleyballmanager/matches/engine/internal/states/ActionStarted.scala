@@ -66,7 +66,22 @@ class ActionStarted(matchState: MatchState) extends ActionState {
     new ReceiveError(receiver)
   }
 
-  private def aceProbability(): Double = ???
+  private def aceProbability(): Double = {
+    val serveRisk = serveParams._1
+    val serveType = serveParams._2
+    val riskCoefficient = serveRisk match {
+      case Safe => 0.25
+      case Normal => 0.75
+      case Risky => 1.0
+    }
+    val tacticsCoefficient = serveType match {
+      case TechnicalServe => server.attributes.technical.technique.coefficient
+      case MixedServe => 1.0 // TODO random pick
+      case StrengthServe => server.attributes.physical.strength.coefficient
+    }
+    val formCoefficient = 1.0
+    formCoefficient * server.attributes.technical.serve.coefficient * riskCoefficient * tacticsCoefficient
+  }
 
   private def faultProbability(): Double = ???
 
