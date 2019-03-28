@@ -1,12 +1,12 @@
 package org.openvolleyballmanager.matches.engine.internal
 
 import org.openvolleyballmanager.matches.MatchState
-import org.openvolleyballmanager.matches.engine.internal.states.ActionStarted
+import org.openvolleyballmanager.matches.engine.internal.states.Serve
 
 class ActionSimulator {
 
   def playAction(matchState: MatchState): MatchState = {
-    val initialState = new ActionStarted(matchState)
+    val initialState = new Serve(matchState)
     val actionStates = play(initialState, List())
     updateMatchState(matchState, actionStates)
   }
