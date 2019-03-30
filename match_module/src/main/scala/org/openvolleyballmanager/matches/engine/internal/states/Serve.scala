@@ -93,7 +93,22 @@ class Serve(matchState: MatchState) extends ActionState {
 
   private def faultProbability(): Double = (1 - aceProbability()) / 2
 
-  private def goodReceiveProbability(receiver: Player): Double = ???
+  private def goodReceiveProbability(receiver: Player): Double = {
+    val serveRisk = serveParams._1
+    val riskCoefficient = serveRisk match {
+      case Safe => MatchEngineConstants.GOOD_RECEIVE_SERVE_RISK_SAFE_COEFFICIENT
+      case Normal => MatchEngineConstants.GOOD_RECEIVE_SERVE_RISK_NORMAL_COEFFICIENT
+      case Risky => MatchEngineConstants.GOOD_RECEIVE_SERVE_RISK_RISKY_COEFFICIENT
+    }
+    val receiverAttrs = receiver.attributes
+    val receiverTechnicalAttrs = receiverAttrs.technical
+    val placing = receiverTechnicalAttrs.placing
+    val technique = receiverTechnicalAttrs.technique
+    val receiverSkillsCoefficient = (placing.coefficient + technique.coefficient) / 2
+    val serverTechnicalAttrs = server.attributes.technical
+    val serveSkillCoefficient = serverTechnicalAttrs.serve.coefficient
+    (riskCoefficient * receiverSkillsCoefficient) / serveSkillCoefficient
+  }
 
   private def badReceiveProbability(receiver: Player): Double = 0.9 * (1 - goodReceiveProbability(receiver))
 
