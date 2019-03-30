@@ -11,4 +11,6 @@ trait MatchState {
   def tactics(team: MatchTeam): MatchTactics = ???
 
   def shape(player: Player): PlayerShape = ???
+
+  def team(player: Player): MatchTeam = ???
 }
