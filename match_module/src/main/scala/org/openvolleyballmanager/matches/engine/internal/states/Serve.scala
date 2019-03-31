@@ -33,9 +33,9 @@ class Serve(matchState: MatchState) extends ActionState {
       .getOrElse(receiveError(receiver))
   }
 
-  private def serveFault(): Option[ActionState] = eventWithProbability(faultProbability(), () => new ServeFail(server))
+  private def serveFault(): Option[ActionState] = eventWithProbability(faultProbability(), () => new ServeFail(server, matchState))
 
-  private def serveAce(): Option[ActionState] = eventWithProbability(aceProbability(), () => new ServeAce(server))
+  private def serveAce(): Option[ActionState] = eventWithProbability(aceProbability(), () => new ServeAce(server, matchState))
 
   private def goodReceive(receiver: Player): Option[ActionState] = {
     val receiver = determineReceiver()
@@ -44,12 +44,12 @@ class Serve(matchState: MatchState) extends ActionState {
 
   private def badReceive(receiver: Player): Option[ActionState] = {
     val receiver = determineReceiver()
-    eventWithProbability(badReceiveProbability(receiver), () => new BadReceive(receiver))
+    eventWithProbability(badReceiveProbability(receiver), () => new BadReceive(receiver, matchState))
   }
 
   private def receiveError(receiver: Player): ActionState = {
     val receiver = determineReceiver()
-    new ReceiveError(receiver)
+    new ReceiveError(receiver, matchState)
   }
 
   private def determineReceiver(): Player = {
