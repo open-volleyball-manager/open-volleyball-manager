@@ -32,11 +32,35 @@ class Set(setter: Player, matchState: MatchState) extends ActionState {
   private def badSetting(): ActionState =
     new SituationalAttack(determineAttacker(), matchState)
 
-  private def errorProbability(): Double = ???
+  private def errorProbability(): Double = {
+    val technicalAttrs = setter.attributes.technical
+    val mentalAttrs = setter.attributes.mental
+    val technique = technicalAttrs.technique
+    val decisions = mentalAttrs.decisions
+    val experience = mentalAttrs.experience
+    0.1 / (technique.coefficient * decisions.coefficient * experience.coefficient)
+  }
 
-  private def trickProbability(): Double = ???
+  private def trickProbability(): Double = {
+    val technicalAttrs = setter.attributes.technical
+    val mentalAttrs = setter.attributes.mental
+    val creativity = mentalAttrs.creativity
+    val determination = mentalAttrs.determination
+    val technique = technicalAttrs.technique
+    val charisma = mentalAttrs.charisma
+    creativity.coefficient * determination.coefficient * technique.coefficient * charisma.coefficient
+  }
 
-  private def goodSettingProbability(): Double = ???
+  private def goodSettingProbability(): Double = {
+    val technicalAttrs = setter.attributes.technical
+    val mentalAttrs = setter.attributes.mental
+    val technique = technicalAttrs.technique
+    val creativity = mentalAttrs.creativity
+    val decisions = mentalAttrs.decisions
+    val intuition = mentalAttrs.intuition
+    val experience = mentalAttrs.experience
+    technique.coefficient * decisions.coefficient + creativity.coefficient * intuition.coefficient * experience.coefficient
+  }
 
   private def determineAttacker(): Player = ???
 
