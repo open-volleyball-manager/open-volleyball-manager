@@ -64,6 +64,7 @@ class Set(setter: Player, matchState: MatchState) extends ActionState {
     technique.coefficient * decisions.coefficient + creativity.coefficient * intuition.coefficient * experience.coefficient
   }
 
+  // TODO handle tactics
   private def determineAttacker(): Player = {
     val team = matchState.team(setter)
     val placing = matchState.placing(team)
