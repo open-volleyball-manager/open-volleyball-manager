@@ -18,7 +18,6 @@ class BadReceive(receiver: Player, matchState: MatchState) extends ActionState {
   private def determineSetter(): Player = {
     val receivingTeam = matchState.team(receiver)
     val receivingTeamPlacing = matchState.placing(receivingTeam)
-
     randomPick(receivingTeamPlacing)
   }
 
