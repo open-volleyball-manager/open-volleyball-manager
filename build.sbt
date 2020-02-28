@@ -6,40 +6,40 @@ scalaVersion in ThisBuild := "2.12.8"
 lazy val root = project
   .in(file("."))
   .aggregate(
-    common_module,
-    player_module,
-    team_module,
-    match_module
+    ovm_common,
+    ovm_player,
+    ovm_team,
+    ovm_match
   )
 
-lazy val common_module = project
+lazy val ovm_common = project
   .settings(
-    name := "common_module"
+    name := "ovm-common"
   )
 
-lazy val player_module = project
+lazy val ovm_player = project
   .settings(
-    name := "player_module"
+    name := "ovm-player"
   )
   .dependsOn(
-    common_module
+    ovm_common
   )
 
-lazy val team_module = project
+lazy val ovm_team = project
   .settings(
-    name := "team_module"
+    name := "ovm-team"
   )
   .dependsOn(
-    common_module,
-    player_module
+    ovm_common,
+    ovm_player
   )
 
-lazy val match_module = project
+lazy val ovm_match = project
   .settings(
-    name := "match_module"
+    name := "ovm-match"
   )
   .dependsOn(
-    common_module,
-    player_module,
-    team_module
+    ovm_common,
+    ovm_player,
+    ovm_team
   )
